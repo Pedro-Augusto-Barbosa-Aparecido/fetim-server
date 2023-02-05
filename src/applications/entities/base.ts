@@ -6,4 +6,8 @@ export class BaseEntity {
   constructor(id?: string) {
     this._id = id ?? randomUUID();
   }
+
+  get id(): string {
+    return this._id;
+  }
 }
