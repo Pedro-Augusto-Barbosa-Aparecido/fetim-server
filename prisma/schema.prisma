@@ -30,3 +30,15 @@ model Support {
 
   @@map("supports")
 }
+
+// model Log {
+//   jobId String @id
+
+//   active     Boolean
+//   finished   Boolean
+//   inProgress Boolean
+
+//   error String?
+
+//   @@map("logs")
+// }
