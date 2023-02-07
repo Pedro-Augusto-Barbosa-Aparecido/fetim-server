@@ -15,7 +15,7 @@ export class SendMailConsumerService {
 
     await this.mailer.sendMail({
       to: "pedr.augustobarbosa.aparecido@gmail.com",
-      from: "Fetim Stapp <pedro007augustobarbosa@gmail.com>",
+      from: "Fetin App <pedr.augustobarbosa.aparecido@gmail.com>",
       subject: "Novo suporte requisitado",
       text: `Òlá, tem um novo suporte para resolver!\n\n\n${message}\n\n\n\nRequester: ${requester}`,
     });

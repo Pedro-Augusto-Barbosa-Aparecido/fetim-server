@@ -1,6 +1,5 @@
 import { SupportCreate } from "@applications/useCases/SupportCreateUseCase";
-import { SendMailProducerService } from "@infra/jobs/mail/send-mail-producer.service";
-import { MailerService } from "@nestjs-modules/mailer";
+import { KafkaProducerService } from "@infra/messaging/kafka/kafka-producer.service";
 
 import { Body, Controller, Post } from "@nestjs/common";
 import { CreateSupportBody } from "../dtos/support-create-body-dto";
@@ -10,8 +9,7 @@ import { SupportViewModel } from "../view-models/support-view-models";
 export class SupportController {
   constructor(
     private supportCreate: SupportCreate,
-    private serviceMail: SendMailProducerService,
-    private mailer: MailerService
+    private kafka: KafkaProducerService
   ) {}
 
   @Post()
@@ -23,7 +21,14 @@ export class SupportController {
       requester,
     });
 
-    this.serviceMail.sendMail({ message, requester });
+    await this.kafka.producerService.send({
+      topic: "support.send-support",
+      messages: [
+        {
+          value: JSON.stringify(SupportViewModel.toHttp(support)),
+        },
+      ],
+    });
 
     return {
       support: SupportViewModel.toHttp(support),
