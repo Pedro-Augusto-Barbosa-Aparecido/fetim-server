@@ -1,5 +1,5 @@
 import { SupportCreate } from "@applications/useCases/SupportCreateUseCase";
-import { KafkaProducerService } from "@infra/messaging/kafka/kafka-producer.service";
+import { BullService } from "@infra/jobs/bull/bull.service";
 
 import { Body, Controller, Post } from "@nestjs/common";
 import { CreateSupportBody } from "../dtos/support-create-body-dto";
@@ -9,7 +9,7 @@ import { SupportViewModel } from "../view-models/support-view-models";
 export class SupportController {
   constructor(
     private supportCreate: SupportCreate,
-    private kafka: KafkaProducerService
+    private bull: BullService
   ) {}
 
   @Post()
@@ -21,14 +21,7 @@ export class SupportController {
       requester,
     });
 
-    await this.kafka.producerService.send({
-      topic: "support.send-support",
-      messages: [
-        {
-          value: JSON.stringify(SupportViewModel.toHttp(support)),
-        },
-      ],
-    });
+    this.bull.sendMailToSupportTeam({ message, requester });
 
     return {
       support: SupportViewModel.toHttp(support),

@@ -1,13 +1,13 @@
+// import { MailerModule } from "@nestjs-modules/mailer";
 import { MailerModule } from "@nestjs-modules/mailer";
 import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
+// import { ConfigModule } from "@nestjs/config";
 import { SupportController } from "./kafka/controllers/support.controller";
 import { KafkaConsumerService } from "./kafka/kafka-consumer.service";
 import { KafkaProducerService } from "./kafka/kafka-producer.service";
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
     MailerModule.forRoot({
       transport: {
         host: process.env.MAIL_HOST,
