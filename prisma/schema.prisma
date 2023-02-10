@@ -31,6 +31,20 @@ model Support {
   @@map("supports")
 }
 
+model Student {
+  id          String @id @default(uuid())
+  firebase_id String @unique
+
+  email     String
+  // password  String
+  photo_url String
+  tenant_id String
+  username  String
+
+  @@index([id, firebase_id, email])
+  @@map("students")
+}
+
 // model Log {
 //   jobId String @id
 

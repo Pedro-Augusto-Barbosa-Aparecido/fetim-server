@@ -2,6 +2,7 @@ import { Student } from "@applications/entities/Student";
 import { StudentRepository } from "@applications/repositories/student-repository";
 import { Injectable } from "@nestjs/common";
 import { FirebaseService } from "../firebase.service";
+import { FirebaseStudentMapper } from "../mappers/friebase-student-mapper";
 
 @Injectable()
 export class FirebaseStudentRepository implements StudentRepository {
@@ -12,5 +13,11 @@ export class FirebaseStudentRepository implements StudentRepository {
       student.email,
       student.password
     );
+
+    return FirebaseStudentMapper.toDomain({
+      ...userOnFirebase,
+      displayName: student.username ?? "",
+      photoURL: student.avatarUrl ?? "",
+    });
   }
 }

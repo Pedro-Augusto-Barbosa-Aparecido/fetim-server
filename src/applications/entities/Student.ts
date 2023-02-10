@@ -3,7 +3,7 @@ import { BaseEntity } from "./base";
 interface StudentProps {
   displayName?: string;
   email: string;
-  password: string;
+  password?: string;
   photoUrl?: string;
   tenantId?: string;
   uid?: string;
@@ -39,6 +39,6 @@ export class Student extends BaseEntity {
   }
 
   public get password() {
-    return this.props.password;
+    return this.props.password ?? "";
   }
 }
