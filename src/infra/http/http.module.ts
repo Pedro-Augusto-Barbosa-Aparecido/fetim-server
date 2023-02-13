@@ -11,6 +11,8 @@ import { BullModule } from "@nestjs/bull";
 import { Module } from "@nestjs/common";
 import { StudentController } from "./controller/student.controller";
 import { SupportController } from "./controller/support.controller";
+import { StudentListUseCase } from "@applications/useCases/Student/StudentListUseCase";
+import { StudentRepository } from "@applications/repositories/student-repository";
 
 @Module({
   imports: [
@@ -26,6 +28,7 @@ import { SupportController } from "./controller/support.controller";
     FirebaseService,
     PrismaStudentRepository,
     FirebaseStudentRepository,
+    StudentListUseCase,
   ],
 })
 export class HttpModule {}
