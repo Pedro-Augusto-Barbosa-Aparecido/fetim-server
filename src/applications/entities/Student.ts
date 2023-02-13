@@ -3,10 +3,12 @@ import { BaseEntity } from "./base";
 interface StudentProps {
   displayName?: string;
   email: string;
+  registration?: number;
   password?: string;
   photoUrl?: string;
   tenantId?: string;
   uid?: string;
+  domain_id?: string;
 }
 
 export class Student extends BaseEntity {
@@ -40,5 +42,13 @@ export class Student extends BaseEntity {
 
   public get password() {
     return this.props.password ?? "";
+  }
+
+  public get registration() {
+    return this.props.registration;
+  }
+
+  public get domain_id() {
+    return this.props.domain_id;
   }
 }

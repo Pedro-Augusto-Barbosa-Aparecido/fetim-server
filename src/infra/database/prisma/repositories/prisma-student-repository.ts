@@ -16,7 +16,7 @@ export class PrismaStudentRepository implements StudentRepository {
     const skipRows = per_page * page - per_page;
     const students = await this.prisma.student.findMany({
       orderBy: {
-        id: "asc",
+        registration: "asc",
       },
       skip: skipRows,
       take: per_page,

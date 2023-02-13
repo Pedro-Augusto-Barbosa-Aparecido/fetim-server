@@ -32,8 +32,9 @@ model Support {
 }
 
 model Student {
-  id          String @id @default(uuid())
-  firebase_id String @unique
+  registration Int    @id @default(autoincrement())
+  domain_id    String @default(uuid())
+  firebase_id  String @unique
 
   email     String
   // password  String
@@ -41,7 +42,7 @@ model Student {
   tenant_id String
   username  String
 
-  @@index([id, firebase_id, email])
+  @@index([domain_id, firebase_id, email, registration])
   @@map("students")
 }
 

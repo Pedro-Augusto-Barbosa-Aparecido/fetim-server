@@ -4,6 +4,8 @@ import { Student } from "@applications/entities/Student";
 export class PrismaStudentMapper {
   static toPrisma(student: Student) {
     return {
+      registration: student.registration ?? undefined,
+      domain_id: student.domain_id,
       firebase_id: student.uid ?? "",
       email: student.email,
       photo_url: student.avatarUrl ?? "",
@@ -13,7 +15,15 @@ export class PrismaStudentMapper {
   }
 
   static toDomain(student: PrismaStudent) {
-    const { email, firebase_id, tenant_id, photo_url, username } = student;
+    const {
+      email,
+      firebase_id,
+      tenant_id,
+      photo_url,
+      username,
+      registration,
+      domain_id,
+    } = student;
 
     return new Student({
       email,
@@ -21,6 +31,8 @@ export class PrismaStudentMapper {
       photoUrl: photo_url,
       tenantId: tenant_id,
       uid: firebase_id,
+      domain_id,
+      registration,
     });
   }
 }
