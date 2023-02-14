@@ -10,6 +10,8 @@ export interface StudentList {
 export interface StudentListParams {
   per_page: number;
   page: number;
+  username?: string;
+  registration?: number;
 }
 
 export abstract class StudentRepository {

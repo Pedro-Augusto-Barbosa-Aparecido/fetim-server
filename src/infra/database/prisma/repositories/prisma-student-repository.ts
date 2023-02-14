@@ -12,11 +12,22 @@ import { PrismaStudentMapper } from "../mappers/prisma-student-mapper";
 export class PrismaStudentRepository implements StudentRepository {
   constructor(private prisma: PrismaService) {}
 
-  async listAll({ page, per_page }: StudentListParams): Promise<StudentList> {
+  async listAll({
+    page,
+    per_page,
+    username,
+    registration,
+  }: StudentListParams): Promise<StudentList> {
     const skipRows = per_page * page - per_page;
     const students = await this.prisma.student.findMany({
       orderBy: {
         registration: "asc",
+      },
+      where: {
+        registration: registration ? Number(registration) : undefined,
+        username: {
+          contains: username,
+        },
       },
       skip: skipRows,
       take: per_page,

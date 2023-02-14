@@ -42,11 +42,13 @@ export class StudentController {
 
   @Get()
   async listAll(@Body() body: StudentListDTO) {
-    const { page, per_page } = body;
+    const { page, per_page, registration, username } = body;
 
     const { current_page, students, total } = await this.studentList.execute({
       page,
       per_page,
+      registration,
+      username,
     });
 
     return {
