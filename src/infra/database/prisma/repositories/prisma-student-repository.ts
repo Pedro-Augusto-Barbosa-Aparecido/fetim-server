@@ -1,5 +1,6 @@
 import { Student } from "@applications/entities/Student";
 import {
+  StudentGetByRegistrationParams,
   StudentList,
   StudentListParams,
   StudentRepository,
@@ -11,6 +12,20 @@ import { PrismaStudentMapper } from "../mappers/prisma-student-mapper";
 @Injectable()
 export class PrismaStudentRepository implements StudentRepository {
   constructor(private prisma: PrismaService) {}
+
+  async getStudentByRegistration(
+    params: StudentGetByRegistrationParams
+  ): Promise<Student> {
+    const { registration } = params;
+
+    const student = await this.prisma.student.findUniqueOrThrow({
+      where: {
+        registration,
+      },
+    });
+
+    return PrismaStudentMapper.toDomain(student);
+  }
 
   async listAll({
     page,

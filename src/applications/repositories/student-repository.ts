@@ -7,6 +7,10 @@ export interface StudentList {
   count: number;
 }
 
+export class StudentGetByRegistrationParams {
+  registration: number;
+}
+
 export interface StudentListParams {
   per_page: number;
   page: number;
@@ -17,4 +21,7 @@ export interface StudentListParams {
 export abstract class StudentRepository {
   abstract create(student: Student): Promise<Student>;
   abstract listAll(params: StudentListParams): Promise<StudentList>;
+  abstract getStudentByRegistration(
+    params: StudentGetByRegistrationParams
+  ): Promise<Student>;
 }

@@ -12,7 +12,7 @@ import { Module } from "@nestjs/common";
 import { StudentController } from "./controller/student.controller";
 import { SupportController } from "./controller/support.controller";
 import { StudentListUseCase } from "@applications/useCases/Student/StudentListUseCase";
-import { StudentRepository } from "@applications/repositories/student-repository";
+import { StudentGetByRegistration } from "@applications/useCases/Student/StudentGetByRegistration";
 
 @Module({
   imports: [
@@ -29,6 +29,7 @@ import { StudentRepository } from "@applications/repositories/student-repository
     PrismaStudentRepository,
     FirebaseStudentRepository,
     StudentListUseCase,
+    StudentGetByRegistration,
   ],
 })
 export class HttpModule {}
